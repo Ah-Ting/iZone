@@ -1,6 +1,6 @@
 {
-	"name": "hello-world",
-	"version": "0.0.1",
+	"name": "ting-izone",
+	"version": "0.0.",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
