@@ -1,38 +1,37 @@
-# create-svelte
+# iZONE Assessment - TING Edition
+The iZone Controller UI, TING Edition, simplifies management and control of iZone systems. Easily adjust mode, fan speed, and temperature settings for enhanced comfort and energy efficiency.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+## Setting Up Your Own Development Environment
 
-## Creating a project
+Install [Visual Studio Code](https://code.visualstudio.com/) or your preferred IDE.
 
-If you're seeing this, you've probably already done this step. Congrats!
+Install [Node.js](https://nodejs.org/en/download/).
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+```powershell
+> # When not stated, all commands are assumed to be run on PowerShell
+> npm i -g pnpm # install PnpM, this should be the only time you use npm
+> pnpm i -g typescript # install TypeScript
+> pnpm i -g npm-check-updates # install functionality for updating local packages
+```
 
-# create a new project in my-app
-npm create svelte@latest my-app
+Git clone the projects you are assigned to. Read the `README` of those projects.
+
+```powershell
+> # On a fresh clone, you will need to install all required dependencies first
+> pnpm i  # ( or `yarn`)
 ```
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've done setting up a project and installed dependencies , start a development server:
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+# Start the server and open the app in a new browser tab
+pnpm dev
 ```
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## iZone Controller User Interface
+TING Edition
+<br>
+![plot](./src/docs/ac.png)
+<br>
