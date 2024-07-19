@@ -54,7 +54,7 @@
 
 	async function adjust_temp(change: number) {
 		if (power === 'on') {
-			const adjusted_temp = Math.max(15, Math.min(30, temp + change))
+			const adjusted_temp = Math.max(15, Math.min(30, temp + change));
 			await control_ac({ SysSetpoint: adjusted_temp * 100 });
 			temp = adjusted_temp;
 		}
