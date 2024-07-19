@@ -88,8 +88,8 @@
 		<button on:click={change_mode}><span class="icon">🌡️</span>Mode</button>
 		<button on:click={change_speed}><span class="icon">🌀</span>Fan Speed</button>
 		<div class="temp-buttons">
-			<button class="triangle-up" on:click={temp_up}><span class="icon">▲</span></button>
-			<button class="triangle-down" on:click={temp_down}><span class="icon">▼</span></button>
+			<button class="triangle-up" on:click={temp_up} disabled={power === 'on' && temp === 30}><span class="icon">▲</span></button>
+			<button class="triangle-down" on:click={temp_down} disabled={power === 'on' && temp === 15}><span class="icon">▼</span></button>
 		</div>
 	</div>
 </main>
@@ -137,6 +137,11 @@
 
 	button:hover {
 		background-color: #023492;
+	}
+
+	button:disabled {
+		background-color: #3e3e3f;
+		cursor: not-allowed;
 	}
 
 	.remote {
@@ -211,5 +216,15 @@
 
 	.triangle-down:hover {
 		border-top: 10px solid #0056b3;
+	}
+
+	.triangle-up:disabled {
+		border-bottom: 10px solid #676c70;
+		cursor: not-allowed;
+	}
+
+	.triangle-down:disabled {
+		border-top: 10px solid #676c71;
+		cursor: not-allowed;
 	}
 </style>
