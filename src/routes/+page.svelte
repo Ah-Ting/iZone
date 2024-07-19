@@ -13,7 +13,7 @@
 	let speed: Speed;
 	let temp: number;
 
-	const control_ac_ = async (query: Object) => {
+	async function control_ac(query: Object) {
 		try {
 			await fetch('https://api.izone.com.au/testsimplelocalcocb', {
 				method: 'POST',
@@ -28,36 +28,40 @@
 		}
 	};
 
-	const switch_ = async () => {
-		power = power === 'off' ? 'on' : 'off';
-		await control_ac_({ SysOn: power === 'on' ? 1 : 0 });
+	async function power_switch() {
+		const switch_power = power === 'off' ? 'on' : 'off';
+		await control_ac({ SysOn: switch_power === 'on' ? 1 : 0 });
+		power = switch_power;
 	};
 
-	const cycle_ = <T,>(arr: T[], current: T): T => arr[(arr.indexOf(current) + 1) % arr.length];
+	const cycle = <T,>(arr: T[], current: T): T => arr[(arr.indexOf(current) + 1) % arr.length];
 
-	const mode_ = async () => {
+	async function change_mode() {
 		if (power === 'on') {
-			mode = cycle_(modes, mode);
-			await control_ac_({ SysMode: modes.indexOf(mode) + 1 });
+			const next_mode = cycle(modes, mode);
+			await control_ac({ SysMode: modes.indexOf(next_mode) + 1 });
+			mode = next_mode;
 		}
 	};
 
-	const speed_ = async () => {
+	async function change_speed() {
 		if (power === 'on') {
-			speed = cycle_(speeds, speed);
-			await control_ac_({ SysFan: speeds.indexOf(speed) + 1 });
+			const next_speed = cycle(speeds, speed);
+			await control_ac({ SysFan: speeds.indexOf(next_speed) + 1 });
+			speed = next_speed;
 		}
 	};
 
-	const adjust_temp_ = async (change: number) => {
+	async function adjust_temp(change: number) {
 		if (power === 'on') {
-			temp = Math.max(15, Math.min(30, temp + change));
-			await control_ac_({ SysSetpoint: temp * 100 });
+			const adjusted_temp = Math.max(15, Math.min(30, temp + change))
+			await control_ac({ SysSetpoint: adjusted_temp * 100 });
+			temp = adjusted_temp;
 		}
 	};
 
-	const temp_up_ = async () => adjust_temp_(1);
-	const temp_down_ = async () => adjust_temp_(-1);
+	async function temp_up(){ adjust_temp(1); };
+	async function temp_down(){ adjust_temp(-1); };
 
 	onMount(() => {
 		power = data.ac.SysOn === 0 ? 'off' : 'on';
@@ -80,12 +84,12 @@
 	</div>
 
 	<div class="remote">
-		<button on:click={switch_}><span class="icon">🔌</span>On/Off</button>
-		<button on:click={mode_}><span class="icon">🌡️</span>Mode</button>
-		<button on:click={speed_}><span class="icon">🌀</span>Fan Speed</button>
+		<button on:click={power_switch}><span class="icon">🔌</span>On/Off</button>
+		<button on:click={change_mode}><span class="icon">🌡️</span>Mode</button>
+		<button on:click={change_speed}><span class="icon">🌀</span>Fan Speed</button>
 		<div class="temp-buttons">
-			<button class="triangle-up" on:click={temp_up_}><span class="icon">▲</span></button>
-			<button class="triangle-down" on:click={temp_down_}><span class="icon">▼</span></button>
+			<button class="triangle-up" on:click={temp_up}><span class="icon">▲</span></button>
+			<button class="triangle-down" on:click={temp_down}><span class="icon">▼</span></button>
 		</div>
 	</div>
 </main>
